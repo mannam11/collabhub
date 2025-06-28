@@ -3,7 +3,9 @@ package com.tool.collabhub.mapper;
 import com.tool.collabhub.dto.response.ProjectResponse;
 import com.tool.collabhub.elasticsearch.model.ProjectIndex;
 import com.tool.collabhub.model.Project;
+import lombok.experimental.UtilityClass;
 
+@UtilityClass
 public class ProjectResponseMapper {
 
     public static ProjectResponse from(Project project) {

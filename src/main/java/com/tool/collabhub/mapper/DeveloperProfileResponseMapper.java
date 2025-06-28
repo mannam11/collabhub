@@ -2,9 +2,11 @@ package com.tool.collabhub.mapper;
 
 import com.tool.collabhub.dto.response.DeveloperProfileResponse;
 import com.tool.collabhub.model.DeveloperProfile;
+import lombok.experimental.UtilityClass;
 
 import java.util.List;
 
+@UtilityClass
 public class DeveloperProfileResponseMapper {
 
     public static DeveloperProfileResponse mapToResponse(DeveloperProfile profile, List<String> skills){
