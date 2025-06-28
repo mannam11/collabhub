@@ -36,6 +36,7 @@ public class SkillServiceImpl implements SkillService{
         Skill newSkill = Skill.builder()
                 .name(request.getName())
                 .skillType(SkillType.fromValue(request.getSkillType()))
+                .active(true)
                 .createdOn(LocalDateTime.now())
                 .createdBy(AuthUtils.getCurrentUserId())
                 .build();
@@ -71,9 +72,9 @@ public class SkillServiceImpl implements SkillService{
     public List<SkillResponse> getAll() {
         return skillRepository.findAll()
                 .stream()
+                .filter(Skill::isActive)
                 .map(SkillResponseMapper::mapToResponse)
                 .toList();
     }
-
 
 }

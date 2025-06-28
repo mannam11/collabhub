@@ -23,6 +23,7 @@ public class Skill {
     @Indexed(unique = true)
     private String name;
     private SkillType skillType;
+    private boolean active;
     private LocalDateTime createdOn;
     private LocalDateTime updatedOn;
     private String createdBy;
