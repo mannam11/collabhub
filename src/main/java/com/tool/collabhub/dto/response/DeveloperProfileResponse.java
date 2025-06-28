@@ -22,16 +22,4 @@ public class DeveloperProfileResponse {
     private String linkedinUrl;
     private boolean isProfileComplete;
 
-    public static DeveloperProfileResponse mapToResponse(DeveloperProfile profile,List<String> skills){
-        return DeveloperProfileResponse.builder()
-                .id(profile.getId())
-                .bio(profile.getBio())
-                .title(profile.getTitle())
-                .skills(skills)
-                .experienceInYears(profile.getExperienceInYears())
-                .githubUrl(profile.getGithubUrl())
-                .linkedinUrl(profile.getLinkedinUrl())
-                .isProfileComplete(profile.isProfileComplete())
-                .build();
-    }
 }

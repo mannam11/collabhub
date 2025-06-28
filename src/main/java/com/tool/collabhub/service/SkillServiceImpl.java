@@ -6,6 +6,7 @@ import com.tool.collabhub.dto.response.SkillResponse;
 import com.tool.collabhub.enums.SkillType;
 import com.tool.collabhub.exception.InvalidDeveloperProfileRequestException;
 import com.tool.collabhub.exception.InvalidSkillRequestException;
+import com.tool.collabhub.mapper.SkillResponseMapper;
 import com.tool.collabhub.model.Skill;
 import com.tool.collabhub.repository.SkillRepository;
 import lombok.RequiredArgsConstructor;
@@ -70,7 +71,7 @@ public class SkillServiceImpl implements SkillService{
     public List<SkillResponse> getAll() {
         return skillRepository.findAll()
                 .stream()
-                .map(SkillResponse::mapToResponse)
+                .map(SkillResponseMapper::mapToResponse)
                 .toList();
     }
 

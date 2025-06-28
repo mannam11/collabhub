@@ -2,6 +2,7 @@ package com.tool.collabhub.elasticsearch.service;
 
 import com.tool.collabhub.dto.response.ProjectResponse;
 import com.tool.collabhub.elasticsearch.model.ProjectIndex;
+import com.tool.collabhub.mapper.ProjectResponseMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
@@ -49,7 +50,7 @@ public class ProjectIndexSearchServiceImpl implements ProjectIndexSearchService{
 
             return hits.getSearchHits().stream()
                     .map(SearchHit::getContent)
-                    .map(ProjectResponse::from)
+                    .map(ProjectResponseMapper::from)
                     .collect(Collectors.toList());
 
         } catch (Exception e) {
