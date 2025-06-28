@@ -4,6 +4,7 @@ import com.tool.collabhub.auth.utils.AuthUtils;
 import com.tool.collabhub.dto.request.DeveloperProfileRequest;
 import com.tool.collabhub.dto.response.DeveloperProfileResponse;
 import com.tool.collabhub.exception.InvalidDeveloperProfileRequestException;
+import com.tool.collabhub.mapper.DeveloperProfileResponseMapper;
 import com.tool.collabhub.model.DeveloperProfile;
 import com.tool.collabhub.repository.DeveloperProfileRepository;
 import lombok.RequiredArgsConstructor;
@@ -58,7 +59,7 @@ public class DeveloperProfileServiceImpl implements DeveloperProfileService{
         DeveloperProfile savedProfile = save(profile);
         log.info("Developer profile created for user {}", currentUserId);
 
-        return DeveloperProfileResponse
+        return DeveloperProfileResponseMapper
                 .mapToResponse(savedProfile,skillsWithName);
     }
 
@@ -75,7 +76,7 @@ public class DeveloperProfileServiceImpl implements DeveloperProfileService{
        for(DeveloperProfile profile : developerProfileList){
            List<String> skillsWithName = skillService.getSkillsWithName(profile.getSkillIds());
 
-           responseList.add(DeveloperProfileResponse.mapToResponse(profile,skillsWithName));
+           responseList.add(DeveloperProfileResponseMapper.mapToResponse(profile,skillsWithName));
        }
 
        return responseList;

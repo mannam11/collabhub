@@ -9,11 +9,4 @@ import lombok.Data;
 public class SkillResponse {
     private String id;
     private String name;
-
-    public static SkillResponse mapToResponse(Skill skill){
-        return SkillResponse.builder()
-                .id(skill.getId())
-                .name(skill.getName())
-                .build();
-    }
 }

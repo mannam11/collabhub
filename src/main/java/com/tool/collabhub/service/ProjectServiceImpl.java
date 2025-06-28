@@ -5,6 +5,7 @@ import com.tool.collabhub.dto.response.ProjectResponse;
 import com.tool.collabhub.elasticsearch.service.ProjectIndexService;
 import com.tool.collabhub.exception.ProjectException;
 import com.tool.collabhub.exception.ProjectNotFoundException;
+import com.tool.collabhub.mapper.ProjectResponseMapper;
 import com.tool.collabhub.model.Project;
 import com.tool.collabhub.repository.ProjectRepository;
 import lombok.RequiredArgsConstructor;
@@ -39,7 +40,7 @@ public class ProjectServiceImpl implements ProjectService{
         projectIndexService.save(newProject);
         log.info("Project index created with id : {}", newProject.getId());
 
-        return ProjectResponse.from(newProject);
+        return ProjectResponseMapper.from(newProject);
     }
 
     @Override
@@ -71,7 +72,7 @@ public class ProjectServiceImpl implements ProjectService{
 
         return projects.stream()
                 .filter(project -> project.getId().equals(projectId))
-                .map(ProjectResponse::from)
+                .map(ProjectResponseMapper::from)
                 .findFirst()
                 .orElseThrow(() ->new ProjectNotFoundException("Project not found with id : " + projectId));
     }
@@ -80,7 +81,7 @@ public class ProjectServiceImpl implements ProjectService{
     public List<ProjectResponse> getAll(String userId) {
 
         return findAllByUserId(userId).stream()
-                .map(ProjectResponse::from)
+                .map(ProjectResponseMapper::from)
                 .toList();
     }
 
