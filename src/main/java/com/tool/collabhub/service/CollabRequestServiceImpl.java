@@ -69,7 +69,7 @@ public class CollabRequestServiceImpl implements CollabRequestService{
     public List<CollabReqResponse> getProjectWiseCollabRequests(String projectId) {
 
         if(projectId == null || projectId.trim().isEmpty()){
-            throw new InvalidProjectCollabRequestException("Invalid project");
+            throw new InvalidProjectCollabRequestException("Project id must not be null or empty");
         }
 
         Project project = projectService.findById(projectId);
