@@ -15,5 +15,5 @@ public interface ProjectService {
     public void deleteById(String userId, String projectId);
     public List<Project> findAllByUserId(String userId);
     public void update(String userId, String projectId, ProjectRequest request);
-    public Optional<Project> findById(String projectId);
+    public Project findById(String projectId);
 }

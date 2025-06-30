@@ -137,7 +137,8 @@ public class ProjectServiceImpl implements ProjectService{
     }
 
     @Override
-    public Optional<Project> findById(String projectId) {
-        return projectRepository.findById(projectId);
+    public Project findById(String projectId) {
+        return projectRepository.findById(projectId)
+                .orElseThrow( () -> new ProjectNotFoundException("Project with id : " + projectId + " not found"));
     }
 }
