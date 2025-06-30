@@ -8,5 +8,5 @@ import java.util.List;
 public interface CollabRequestService {
     public void sendRequest(String projectId,ProjectCollabRequest request);
     public List<CollabReqResponse> getIndividualCollabRequests();
-    public List<CollabReqResponse> getProjectWiseCollabRequest(String projectId);
+    public List<CollabReqResponse> getProjectWiseCollabRequests(String projectId);
 }

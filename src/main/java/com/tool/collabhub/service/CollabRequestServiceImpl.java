@@ -66,7 +66,7 @@ public class CollabRequestServiceImpl implements CollabRequestService{
     }
 
     @Override
-    public List<CollabReqResponse> getProjectWiseCollabRequest(String projectId) {
+    public List<CollabReqResponse> getProjectWiseCollabRequests(String projectId) {
 
         if(projectId == null || projectId.trim().isEmpty()){
             throw new InvalidProjectCollabRequestException("Invalid project");

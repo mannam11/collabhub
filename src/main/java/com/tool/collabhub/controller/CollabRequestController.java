@@ -28,6 +28,6 @@ public class CollabRequestController {
 
     @GetMapping("/{projectId}")
     public ResponseEntity<?> getProjectWiseCollabRequests(@PathVariable String projectId) {
-        return ResponseEntity.ok(collabRequestService.getProjectWiseCollabRequest(projectId));
+        return ResponseEntity.ok(collabRequestService.getProjectWiseCollabRequests(projectId));
     }
 }
