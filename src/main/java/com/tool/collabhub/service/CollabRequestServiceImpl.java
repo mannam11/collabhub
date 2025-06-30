@@ -2,8 +2,10 @@ package com.tool.collabhub.service;
 
 import com.tool.collabhub.auth.utils.AuthUtils;
 import com.tool.collabhub.dto.request.ProjectCollabRequest;
+import com.tool.collabhub.dto.response.CollabReqResponse;
 import com.tool.collabhub.enums.CollabRequestStatus;
 import com.tool.collabhub.exception.InvalidProjectCollabRequestException;
+import com.tool.collabhub.mapper.CollabReqResponseMapper;
 import com.tool.collabhub.model.CollabRequest;
 import com.tool.collabhub.model.Project;
 import com.tool.collabhub.repository.CollabRequestRepository;
@@ -12,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -30,8 +33,7 @@ public class CollabRequestServiceImpl implements CollabRequestService{
             throw new InvalidProjectCollabRequestException("Project ID cannot be null or empty.");
         }
 
-        Project project = projectService.findById(projectId)
-                .orElseThrow(() -> new InvalidProjectCollabRequestException("Project not found with id: " + projectId));
+        Project project = projectService.findById(projectId);
 
         String currentUserId = AuthUtils.getCurrentUserId();
 
@@ -48,6 +50,37 @@ public class CollabRequestServiceImpl implements CollabRequestService{
 
         collabRequestRepository.save(collabRequest);
         log.info("CollabRequest created for user : {} for the project id : {}",currentUserId,project.getId());
+    }
+
+    @Override
+    public List<CollabReqResponse> getIndividualCollabRequests() {
+        String currentUserId = AuthUtils.getCurrentUserId();
+
+        List<CollabRequest> collabRequestList = collabRequestRepository.findByRequestedUserInfo_RequestedUserId(currentUserId);
+
+        log.info("Found : {} collab request for user with id : {}",collabRequestList.size(),currentUserId);
+
+        return collabRequestList.stream()
+                .map(CollabReqResponseMapper::mapToResponse)
+                .toList();
+    }
+
+    @Override
+    public List<CollabReqResponse> getProjectWiseCollabRequest(String projectId) {
+
+        if(projectId == null || projectId.trim().isEmpty()){
+            throw new RuntimeException("Invalid project");
+        }
+
+        Project project = projectService.findById(projectId);
+
+        List<CollabRequest> collabRequestList = collabRequestRepository.findByProjectInfo_ProjectId(projectId);
+
+        log.info("Found : {} collab request for project with id : {}",collabRequestList.size(),project.getId());
+
+        return collabRequestList.stream()
+                .map(CollabReqResponseMapper::mapToResponse)
+                .toList();
     }
 
     private CollabRequest build(ProjectCollabRequest request, String currentUserId, Project project) {

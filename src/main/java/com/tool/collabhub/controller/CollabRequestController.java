@@ -20,4 +20,14 @@ public class CollabRequestController {
         collabRequestService.sendRequest(projectId,request);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @GetMapping
+    public ResponseEntity<?> getIndividualCollabRequests() {
+        return ResponseEntity.ok(collabRequestService.getIndividualCollabRequests());
+    }
+
+    @GetMapping("/{projectId}")
+    public ResponseEntity<?> getProjectWiseCollabRequests(@PathVariable String projectId) {
+        return ResponseEntity.ok(collabRequestService.getProjectWiseCollabRequest(projectId));
+    }
 }
