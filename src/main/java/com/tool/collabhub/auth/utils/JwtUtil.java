@@ -38,7 +38,7 @@ public class JwtUtil {
         long now = System.currentTimeMillis();
         return JWT.create()
                 .withSubject(email)
-                .withClaim("userId", userId)
+                .withClaim("sub", userId)
                 .withIssuedAt(new Date(now))
                 .withExpiresAt(new Date(now + ACCESS_TOKEN_EXPIRY_MS))
                 .sign(algorithm);
@@ -65,7 +65,7 @@ public class JwtUtil {
 
     public String extractUserId(String token) {
         try {
-            return decodeToken(token).getClaim("userId").asString();
+            return decodeToken(token).getClaim("sub").asString();
         } catch (JWTVerificationException e) {
             log.warn("Failed to extract userId from token: {}", e.getMessage());
             return null; // or throw a custom exception
